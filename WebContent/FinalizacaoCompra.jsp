@@ -5,14 +5,13 @@
 <!DOCTYPE html">
 <html>
 <head>
-<title>T-Shirt Games - Finalização de Compra</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="resources/css/bootstrap/bootstrap.css">
-<link rel="stylesheet" href="resources/css/style.nav.css">
-<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="resources/js/popper.min.js"></script>
-<script src="resources/js/script.js"></script>
-<script src="resources/js/bootstrap/bootstrap.js"></script>
+	<title>T-Shirt Games - Finalização de Compra</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="resources/css/bootstrap/bootstrap.css">
+	
+	<script type="text/javascript" src="resources/js/jquery/jquery.min.js"></script>
+	<script src="resources/js/bootstrap/popper.min.js"></script>
+	<script src="resources/js/bootstrap/bootstrap.js"></script>
 </head>
 <body>
 	<c:import url="resources/template/nav.jsp" />
@@ -52,98 +51,9 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-md-6 ">
+			<div class="col-md-12 col-lg-6">
 				<div class="card">
 					<h5 class="card-header font-weight-bold" >Dados de Cadastrados</h5>
-					<div class="card-body">
-						<ul class="list-group">
-							<c:if test="${not empty idusuario}">
-								<li class="list-group-item list-group-item-dark">Nome:<c:out value=" ${nome}"></c:out></li>
-								<li class="list-group-item list-group-item-dark">Email:<c:out value=" ${email}"></c:out></li>
-								<li class="list-group-item list-group-item-dark">Celular:<c:out value=" ${celular}"></c:out></li>
-								<li class="list-group-item list-group-item-dark">Telefone:<c:out value=" ${telefone}"></c:out></li>
-								<li class="list-group-item list-group-item-dark">Tipo de cadastro:<c:out value="Fisico"></c:out></li>
-								<li class="list-group-item list-group-item-dark">CPF:<c:out value=" ${cpf}"></c:out></li>
-							</c:if>
-							<c:if test="${not empty idempresa}">
-								<li class="list-group-item list-group-item-dark">Razão Social:<c:out value=" ${razao}"></c:out></li>
-								<li class="list-group-item list-group-item-dark">Nome Fantasia:<c:out value=" ${nomefantasia}"></c:out></li>
-								<li class="list-group-item list-group-item-dark">Email:<c:out value=" ${email}"></c:out></li>
-								<li class="list-group-item list-group-item-dark">Celular:<c:out value=" ${celular}"></c:out></li>
-								<li class="list-group-item list-group-item-dark">Telefone:<c:out value=" ${telefone}"></c:out></li>
-								<li class="list-group-item list-group-item-dark">Tipo de cadastro:<c:out value="Juridico"></c:out></li>
-								<li class="list-group-item list-group-item-dark">CNPJ:<c:out value=" ${cnpj}"></c:out></li>
-							</c:if>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-6 ">
-				<div class="card">
-					<h5 class="card-header font-weight-bold">Endereço de Entrega</h5>
-					<div class="card-body">
-						<div class="row">
-
-							<div class="col-sm-12 col-lg-8">
-								<label class="font-weight-bold">CEP</label> <input type="text"
-									class="form-control" value="${cep}" placeholder="">
-							</div>
-
-							<div class="col-sm-12 col-lg-4">
-								<label class="font-weight-bold">Valor Frete</label> <input
-									type="text" class="form-control" value="${valorfrete}"
-									placeholder="">
-							</div>
-
-							<div class="col-sm-12 col-lg-6 mt-3">
-								<label class="font-weight-bold">Complemento</label> <input
-									type="text" class="form-control" value="${complemento}"
-									placeholder="">
-							</div>
-
-							<div class="col-sm-12 col-lg-6 mt-3">
-								<label class="font-weight-bold">Destinatario</label>
-								<input type="text" class="form-control" name="destinatario" placeholder="">
-							</div>
-
-							<div class="col-sm-12 col-lg-12 mt-3">
-								<label class="font-weight-bold">Endereço</label> <input
-									type="text" class="form-control" value="${endereco}"
-									placeholder="">
-							</div>
-
-							<div class="col-sm-12 col-lg-4 mt-3">
-								<label class="font-weight-bold">Número</label> <input
-									type="text" class="form-control" value="${numero}"
-									placeholder="">
-							</div>
-
-							<div class="col-sm-12 col-lg-8 mt-3">
-								<label class="font-weight-bold">Bairro</label> <input
-									type="text" class="form-control" value="${bairro}"
-									placeholder="">
-							</div>
-
-							<div class="col-sm-12 col-lg-6 mt-3">
-								<label class="font-weight-bold">Cidade</label> <input
-									type="text" class="form-control" value="${cidade}"
-									placeholder="">
-							</div>
-
-							<div class="col-sm-12 col-lg-6 mt-3">
-								<label class="font-weight-bold">Estado</label> <input
-									type="text" class="form-control" value="${estado}"
-									placeholder="">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="col-md-6 mt-5">
-				<div class="card">
-					<h5 class="card-header">Dados de Cadastrados</h5>
 					<div class="card-body">
 						<ul class="list-group">
 							<c:if test="${not empty idusuariouser}">
@@ -167,16 +77,69 @@
 					</div>
 				</div>
 			</div>
-			
-			<div class="col-md-6 mt-5">
+
+			<div class="col-md-12 col-lg-6">
+				<div class="card">
+					<h5 class="card-header font-weight-bold">Endereço de Entrega</h5>
+					<div class="card-body">
+						<div class="row">
+
+							<div class="col-sm-12 col-md-3 col-lg-4">
+								<label class="font-weight-bold">CEP</label> <input type="text"
+									class="form-control" value="${cep}" placeholder="">
+							</div>
+
+							<div class="col-sm-12 col-md-9 col-lg-8">
+								<label class="font-weight-bold">Complemento</label> <input
+									type="text" class="form-control" value="${complemento}"
+									placeholder="">
+							</div>
+
+							<div class="col-sm-12 col-lg-12 mt-3">
+								<label class="font-weight-bold">Destinatario</label>
+								<input type="text" class="form-control" name="destinatario" placeholder="">
+							</div>
+
+							<div class="col-sm-12 col-lg-12 mt-3">
+								<label class="font-weight-bold">Endereço</label> <input
+									type="text" class="form-control" value="${endereco}"
+									placeholder="">
+							</div>
+
+							<div class="col-sm-12 col-md-3 col-lg-4 mt-3">
+								<label class="font-weight-bold">Número</label> <input
+									type="text" class="form-control" value="${numero}"
+									placeholder="">
+							</div>
+
+							<div class="col-sm-12 col-md-9 col-lg-8 mt-3">
+								<label class="font-weight-bold">Bairro</label> <input
+									type="text" class="form-control" value="${bairro}"
+									placeholder="">
+							</div>
+
+							<div class="col-sm-12 col-md-7 col-lg-7 mt-3">
+								<label class="font-weight-bold">Cidade</label> <input
+									type="text" class="form-control" value="${cidade}"
+									placeholder="">
+							</div>
+
+							<div class="col-sm-12 col-md-5 col-lg-5 mt-3">
+								<label class="font-weight-bold">Estado</label> <input
+									type="text" class="form-control" value="${estado}"
+									placeholder="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6">
 				<div class="card">
 					<h5 class="card-header">Frete:</h5>
 					<div class="card-body">
 					</div>
 				</div>
 			</div>
-
-			
 			<div class="col-md-12 mt-3">
 				<div class="card">
 					<div class="card-body">

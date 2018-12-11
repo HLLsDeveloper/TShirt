@@ -27,6 +27,10 @@ public class CadastroJuridicoSG implements Serializable{
 	private String celular = null;
 	private String condicao = null;
 	private String logo = null;
+	private Integer idfavorito = 0;
+	private Integer idfavoritojuridico = 0;
+	private String favoritopers = null;
+	private Integer idproduto = 0;
 	
 	public Integer getIdempresa() {
 		return idempresa;
@@ -139,8 +143,8 @@ public class CadastroJuridicoSG implements Serializable{
 	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(String telefone2) {
-		this.telefone = telefone2;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 	public String getCelular() {
 		return celular;
@@ -159,6 +163,33 @@ public class CadastroJuridicoSG implements Serializable{
 	}
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+	public Integer getIdfavorito() {
+		return idfavorito;
+	}
+	public void setIdfavorito(Integer idfavorito) {
+		this.idfavorito = idfavorito;
+	}
+	public Integer getIdfavoritojuridico() {
+		return idfavoritojuridico;
+	}
+	public void setIdfavoritojuridico(Integer idfavoritojuridico) {
+		this.idfavoritojuridico = idfavoritojuridico;
+	}
+	public String getFavoritopers() {
+		return favoritopers;
+	}
+	public void setFavoritopers(String favoritopers) {
+		this.favoritopers = favoritopers;
+	}
+	public Integer getIdproduto() {
+		return idproduto;
+	}
+	public void setIdproduto(Integer idproduto) {
+		this.idproduto = idproduto;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }
 	

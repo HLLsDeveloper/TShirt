@@ -107,7 +107,7 @@ public class InserirProduto extends HttpServlet {
 	                	}
 	                	if (item.getFieldName().equals("referencia")) {
 	                		
-	                		produtosg.setReferencia(Integer.parseInt(item.getString()));
+	                		produtosg.setReferencia(item.getString());
 	                	}
 	                } 
 	            }
@@ -124,7 +124,7 @@ public class InserirProduto extends HttpServlet {
 
     	// UTILIZA A AÇÃO DE INSERIR
     	try {
-			produtodao.inserir(produtosg,1);
+			produtodao.inserir(produtosg);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

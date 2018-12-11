@@ -16,7 +16,7 @@ public class ConexaoLogin {
 	 public Boolean LoginFisico(String email, String senha) {
 		 
 		 // BUSCA NA TABELA FISICO PELO EMAIL E SENHA
-		 con = new Factory().conBD1();
+		 con = new Factory().conBD();
 		 sql = "select email, senha, condicao from FISICO where email = '" + email + "' and senha = '" + senha + "' and condicao = 'Ativo'";
 
 		 try{
@@ -43,7 +43,7 @@ public class ConexaoLogin {
 	 public Boolean LoginJuridico(String email, String senha) {
 		 
 		 // VERIFICA NA TABELA JURIDICO
-		 con = new Factory().conBD1();
+		 con = new Factory().conBD();
 		 sql = "select email, senha, condicao from JURIDICO where email = '" + email + "' and senha = '" + senha + "' and condicao = 'Ativo'";
 		 
 		 try {

@@ -13,7 +13,7 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
 	<div class="container">	
-		<a href="http://localhost:8080/TShirtGames/Home"><img src="resources/img/logo.png" class="d-inline-block align-top logo-size" width="40" height="40" alt=""></a>  
+		<a href="Home"><img src="resources/img/logo.png" class="d-inline-block align-top logo-size" width="40" height="40" alt=""></a>  
 		
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     		<span class="navbar-toggler-icon"></span>
@@ -65,7 +65,7 @@
                   <a class="dropdown-item" href="http://localhost:8080/TShirtGames/GerenciamentoFisico">Gerenciamento Fisico</a>
 
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="http://localhost:8080/TShirtGames/Logout">Sair</a>
+                  <a class="dropdown-item" href="Logout">Sair</a>
                 </div>
               </li>
               </c:if>

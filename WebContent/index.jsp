@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="resources/css/bootstrap/bootstrap.css">
 	<link rel="stylesheet" href="resources/css/owlcarousel/owl.carousel.css">
 	<link rel="stylesheet" href="resources/css/owlcarousel/owl.theme.default.css">
+	<link rel="stylesheet" href="resources/css/style.Descricao.css">
 	
 	<script type="text/javascript" src="resources/js/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap/popper.min.js"></script>
@@ -17,6 +18,7 @@
 	<script type="text/javascript" src="resources/js/owlcarousel/owl.carousel.js"></script>
 	
 	<script type="text/javascript" src="resources/js/script.ExibirModal.js"></script>
+	<script type="text/javascript" src="resources/js/script.TamanhoSelecionado.js"></script>
 </head>
 <body>
 	<c:import url="resources/template/nav.jsp"/>
@@ -127,6 +129,7 @@
 	</section>
 	
 	<c:import url="resources/template/modal.AddCarrinho.jsp"></c:import>
+	<c:import url="resources/template/modal.Favoritos.jsp"></c:import>
 	<c:import url="resources/template/footer.jsp"></c:import>
 </body>
 </html>

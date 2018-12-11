@@ -1,10 +1,16 @@
-$(document).ready(function TamanhoSelecionado(id){
+function selectAll(){
+	var all = document.getElementById("select");
+	if(all.checked){
+		var check = document.getElementsByName("idtamanho");
+		for(var i = 0; i < check.length; i++){
+			check[i].checked = 1;
+		}
+	} else {
+		var check = document.getElementsByName("idtamanho");
+		for(var i = 0; i < check.length; i++){
+			 check[i].checked = 0;
+		}
+	}
 	
-	var x = document.getElementById('idproduto').value;
-	var y = document.getElementById(id).id;
-	
-	if(x == y){
-		
-		document.getElementById(id).style = 'background-color: #ff6600; color: white;';
-	}	
-});
+	return null;
+}

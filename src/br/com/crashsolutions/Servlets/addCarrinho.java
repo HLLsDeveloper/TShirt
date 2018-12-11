@@ -50,7 +50,7 @@ public class addCarrinho extends HttpServlet {
 			String produto = null, imagem = null, tamanho = null, cor = null, categoria = null;
 			
 			ProdutoDAO produtodao = new ProdutoDAO();
-			colocarcarrinho = produtodao.consultar(id, fornecedor);
+			colocarcarrinho = produtodao.consultar(id);
 			
 			idproduto = colocarcarrinho.getIdproduto();
 			produto = colocarcarrinho.getProduto();

@@ -25,7 +25,7 @@ public class ProdutoSG implements Serializable{
 	private Integer quantidadetotal = 0;
 	private Integer quantidade_dig = 0;
 	private BigDecimal numeropedido = null;
-	private Integer referencia = null;
+	private String referencia = null;
 	private String condicao = null;
 	private Integer idfornecedor = 0;
 	private String razao = null;
@@ -152,10 +152,10 @@ public class ProdutoSG implements Serializable{
 	public void setNumeropedido(BigDecimal numeropedido) {
 		this.numeropedido = numeropedido;
 	}
-	public Integer getReferencia() {
+	public String getReferencia() {
 		return referencia;
 	}
-	public void setReferencia(Integer referencia) {
+	public void setReferencia(String referencia) {
 		this.referencia = referencia;
 	}
 	public String getCondicao() {

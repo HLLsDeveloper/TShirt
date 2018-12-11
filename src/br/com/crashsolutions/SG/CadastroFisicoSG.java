@@ -5,6 +5,10 @@ import java.io.Serializable;
 public class CadastroFisicoSG implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 	private Integer idusuario = 0;
 	private String email = null;
 	private String senha = null;
@@ -28,14 +32,11 @@ public class CadastroFisicoSG implements Serializable{
 	private String celular = null;
 	private String condicao = null;
 	private String imagem = null;
-	
-	
-	public String getImagem() {
-		return imagem;
-	}
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
-	}
+	private Integer idfavorito = 0;
+	private Integer idfavoritofisico = 0;
+	private String favoritopers = null;
+	private Integer idproduto = 0;
+
 	public Integer getIdusuario() {
 		return idusuario;
 	}
@@ -57,8 +58,8 @@ public class CadastroFisicoSG implements Serializable{
 	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(String string) {
-		this.cpf = string;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	public String getNome() {
 		return nome;
@@ -81,8 +82,8 @@ public class CadastroFisicoSG implements Serializable{
 	public String getDatanascimento() {
 		return datanascimento;
 	}
-	public void setDatanascimento(String datanascimento2) {
-		this.datanascimento = datanascimento2;
+	public void setDatanascimento(String datanascimento) {
+		this.datanascimento = datanascimento;
 	}
 	public String getSexo() {
 		return sexo;
@@ -147,8 +148,8 @@ public class CadastroFisicoSG implements Serializable{
 	public String getCep() {
 		return cep;
 	}
-	public void setCep(String cep2) {
-		this.cep = cep2;
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 	public String getTelefone() {
 		return telefone;
@@ -167,5 +168,35 @@ public class CadastroFisicoSG implements Serializable{
 	}
 	public void setCondicao(String condicao) {
 		this.condicao = condicao;
+	}
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+	public Integer getIdfavorito() {
+		return idfavorito;
+	}
+	public void setIdfavorito(Integer idfavorito) {
+		this.idfavorito = idfavorito;
+	}
+	public Integer getIdfavoritofisico() {
+		return idfavoritofisico;
+	}
+	public void setIdfavoritofisico(Integer idfavoritofisico) {
+		this.idfavoritofisico = idfavoritofisico;
+	}
+	public String getFavoritopers() {
+		return favoritopers;
+	}
+	public void setFavoritopers(String favoritopers) {
+		this.favoritopers = favoritopers;
+	}
+	public Integer getIdproduto() {
+		return idproduto;
+	}
+	public void setIdproduto(Integer idproduto) {
+		this.idproduto = idproduto;
 	}
 }

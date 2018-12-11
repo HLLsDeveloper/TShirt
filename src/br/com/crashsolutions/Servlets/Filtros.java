@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(filterName="Filtros", urlPatterns={"/Finalizacao", "/Enderecos", "/addCarrinho", "/Carrinho"})
+@WebFilter(filterName="Filtros", urlPatterns={"/Finalizacao", "/Enderecos", "/addCarrinho", "/Carrinho", "/Favoritos"})
 public class Filtros implements Filter {
 
     public Filtros() {

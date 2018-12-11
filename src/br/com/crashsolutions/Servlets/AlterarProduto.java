@@ -44,7 +44,7 @@ public class AlterarProduto extends HttpServlet {
 		ArrayList<ProdutoSG> lista;
 		
 		try {
-			lista = dao.buscaTodos(1);
+			lista = dao.buscaTodos();
 			request.setAttribute("lista_produto", lista);
 			
 		} catch (SQLException e) {
@@ -53,7 +53,7 @@ public class AlterarProduto extends HttpServlet {
 		
 		// CONSULTA PELO ID DO PRODUTO
 		try {
-			sg = dao.consultar(request.getParameter("idproduto"),1);
+			sg = dao.consultar(request.getParameter("idproduto"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -75,7 +75,7 @@ public class AlterarProduto extends HttpServlet {
 				Float ValorCusto = sg.getValor_custo();
 				Float ValorVenda = sg.getValor_venda();
 				Integer Quantidade = sg.getQuantidade();
-				Integer Referencia = sg.getReferencia();
+				String Referencia = sg.getReferencia();
 				
 				// INSERE OS DADOS NOS CAMPOS DA PÁGINA JSP
 				request.setAttribute("idproduto", Idproduto);
@@ -182,7 +182,7 @@ public class AlterarProduto extends HttpServlet {
 	                	}
 	                	if (item.getFieldName().equals("referencia")) {
 	                		
-	                		produtosg.setReferencia(Integer.parseInt(item.getString()));
+	                		produtosg.setReferencia(item.getString());
 	                	}	
 	                }
 	            }
@@ -203,7 +203,7 @@ public class AlterarProduto extends HttpServlet {
 		// UTILIZA O METODO DE ALTERAR DO DAO 
 		try {
 			
-			produtodao.alterar(produtosg,1);
+			produtodao.alterar(produtosg);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -213,7 +213,7 @@ public class AlterarProduto extends HttpServlet {
 		ArrayList<ProdutoSG> lista;
 		
 		try {
-			lista = listar.buscaTodos(1);
+			lista = listar.buscaTodos();
 			request.setAttribute("lista_produto", lista);
 			
 		} catch (SQLException e) {

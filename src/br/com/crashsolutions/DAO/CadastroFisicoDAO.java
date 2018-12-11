@@ -13,13 +13,13 @@ public class CadastroFisicoDAO {
 	
 	private String sql;
 	private Connection con;
-	private CadastroFisicoSG retornoLista = new CadastroFisicoSG();
+	private CadastroFisicoSG retornoLista;
 	private PreparedStatement stmConsulta, stmCadastrar, stmAlterarusu;
 	private ResultSet respConsulta;
 	
 	public void cadastrarUsuario(CadastroFisicoSG sg) throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "insert into FISICO (email,senha,cpf,imagem,nome,sobrenome,datanascimento,sexo,telefone,celular,condicao) value (?,?,?,?,?,?,?,?,?,?,'Ativo')";
 		
 		try {
@@ -48,7 +48,7 @@ public class CadastroFisicoDAO {
 	
 	public void cadastrarEndereco(CadastroFisicoSG sg) throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "insert into ENDERECO_FISICO (idenderecofisico,nomeendereco,endereco,numero,complemento,bairro,cidade,estado,cep) value (?,?,?,?,?,?,?,?,?)";
 		
 		try {
@@ -75,9 +75,87 @@ public class CadastroFisicoDAO {
 		}
 	}
 	
+	public void cadastrarFavoritos(CadastroFisicoSG sgfisico) throws SQLException {
+		
+		con = new Factory().conBD();
+		sql = "insert into FAVORITOSFISICO (idfavoritofisico,idproduto,favoritopers) value (?,?,?)";
+		
+		try {
+			
+			stmCadastrar = con.prepareStatement(sql);
+			
+			stmCadastrar.setInt(1, sgfisico.getIdfavoritofisico());
+			stmCadastrar.setInt(2, sgfisico.getIdproduto());
+			stmCadastrar.setString(3, sgfisico.getFavoritopers());
+			
+			stmCadastrar.execute();
+			stmCadastrar.close();
+			con.close();
+			
+		} catch (Exception ex) {
+			System.out.println("Erro ao cadastrar "+ ex);
+			con.close();
+		}
+	}
+	
+	public ArrayList<CadastroFisicoSG> consultarFavoritos(Integer idusuario) throws SQLException {
+		
+		con = new Factory().conBD();
+		sql = "select FISICO.idusuario, FAVORITOSFISICO.* from FAVORITOSFISICO join FISICO on FAVORITOSFISICO.idfavoritofisico = fisico.idusuario where idfavoritofisico = ?";
+		
+		ArrayList<CadastroFisicoSG> lista = new ArrayList<CadastroFisicoSG>();
+		
+		try {
+			
+			stmConsulta = con.prepareStatement(sql);
+			stmConsulta.setInt(1, idusuario);
+			respConsulta = stmConsulta.executeQuery();
+			
+			while(respConsulta.next()) {
+				
+				retornoLista = new CadastroFisicoSG();
+				retornoLista.setIdfavorito(respConsulta.getInt("idfavorito"));
+				retornoLista.setIdfavoritofisico(respConsulta.getInt("idfavoritofisico"));
+				retornoLista.setIdproduto(respConsulta.getInt("idproduto"));
+				retornoLista.setFavoritopers(respConsulta.getString("favoritopers"));
+				lista.add(retornoLista);
+			}
+			
+			stmConsulta.close();
+			con.close();
+			
+		} catch(Exception e) {
+			System.out.println("Erro ao consultar os favoritos " + e);
+			con.close();
+		}
+		return lista;
+	}
+	
+	public Boolean verificarFavoritos(String dados, Integer idusuario) throws SQLException {
+		
+		ArrayList<CadastroFisicoSG> check = consultarFavoritos(idusuario);
+		Boolean encontrado = null;
+		
+		if(!check.isEmpty()) {
+			for(CadastroFisicoSG sg: check) {
+				if(sg.getIdproduto().equals(Integer.parseInt(dados))) {
+					encontrado = true;
+					return encontrado;
+				}
+				else {
+					encontrado = false;
+				}
+			}
+		}
+		else {
+			encontrado = false;
+		}
+	return encontrado;
+	}
+	
 	public void  AlterarUsuario (CadastroFisicoSG sgfisico) throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "update FISICO set email = ?, senha = ?, nome = ?, sobrenome = ?, datanascimento = ?, sexo = ?, telefone = ?, celular = ?, condicao = ? where idusuario=?";
 		
 		try {
@@ -107,7 +185,7 @@ public class CadastroFisicoDAO {
 	
 	public CadastroFisicoSG ConsultarUsuario (String geral) throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "select * from FISICO where email = ? or idusuario = ?";
 		
 		try {
@@ -118,6 +196,7 @@ public class CadastroFisicoDAO {
 			
 			while (respConsulta.next()) {
 				
+				retornoLista = new CadastroFisicoSG();
 				retornoLista.setIdusuario(respConsulta.getInt("idusuario"));
 				retornoLista.setEmail(respConsulta.getString("email"));
 				retornoLista.setCpf(respConsulta.getString("cpf"));
@@ -129,14 +208,13 @@ public class CadastroFisicoDAO {
 				retornoLista.setTelefone(respConsulta.getString("telefone"));
 				retornoLista.setCelular(respConsulta.getString("celular"));
 				retornoLista.setCondicao(respConsulta.getString("condicao"));
-
 			}
 			
 			stmConsulta.close();
 			con.close();
 			
 		} catch (Exception ex) {
-			System.out.println("Erro ao consultar o usu�rio "+ ex);
+			System.out.println("Erro ao consultar o usuario "+ ex);
 			con.close();
 		}
 		return retornoLista; 
@@ -144,7 +222,7 @@ public class CadastroFisicoDAO {
 	
 	public ArrayList<CadastroFisicoSG> buscartodos() throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "select * from FISICO";
 		
 		ArrayList<CadastroFisicoSG> lista = new ArrayList<>();
@@ -183,7 +261,7 @@ public class CadastroFisicoDAO {
 	
 	public ArrayList<CadastroFisicoSG> listarEnderecos (String geral) throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "select FISICO.idusuario, ENDERECO_FISICO.* from ENDERECO_FISICO join FISICO on endereco_fisico.idenderecofisico = fisico.idusuario where email = ?";
 		
 		ArrayList <CadastroFisicoSG> listartodos = new ArrayList<>();
@@ -223,7 +301,7 @@ public class CadastroFisicoDAO {
 	// CONSULTA PELA BARRA DE PESQUISA DO GERENCIAMENTO FISICO
     public ArrayList<CadastroFisicoSG> gerenciamentofisico(String geral) throws SQLException {
 		
-    	con = new Factory().conBD1();
+    	con = new Factory().conBD();
 		
 		ArrayList<CadastroFisicoSG> lista = new ArrayList<>();
 		sql = "select * from FISICO where nome like ?";
@@ -264,7 +342,7 @@ public class CadastroFisicoDAO {
 	//PEGA O �LTIMO ID GERADO PELO BANCO DE DADOS
 	public CadastroFisicoSG buscarultimo() throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "select max(idusuario) from FISICO";
 		
 		try {

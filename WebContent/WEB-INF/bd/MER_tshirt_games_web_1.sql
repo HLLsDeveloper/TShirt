@@ -73,6 +73,20 @@ estado varchar(30),
 cep varchar(9)
 );
 
+create table FAVORITOSFISICO (
+idfavorito int not null auto_increment primary key,
+idfavoritofisico int not null,
+idproduto int not null,
+favoritopers varchar(20)
+);
+
+create table FAVORITOSJURIDICO (
+idfavorito int not null auto_increment primary key,
+idfavoritojuridico int not null,
+idproduto int not null,
+favoritopers varchar(20)
+);
+
 create table COMPRAFISICO (
 idcompra int not null auto_increment primary key,
 numeropedido varchar(20) not null,
@@ -125,6 +139,11 @@ alter table COMPRAFISICO add foreign key (idusuario) references FISICO(idusuario
 alter table COMPRAFISICO add foreign key (idproduto) references PRODUTO(idproduto);
 alter table COMPRAJURIDICO add foreign key (idempresa) references JURIDICO(idempresa);
 alter table COMPRAJURIDICO add foreign key (idproduto) references PRODUTO(idproduto);
+alter table FAVORITOSFISICO add foreign key (idfavoritofisico) references FISICO(idusuario);
+alter table FAVORITOSFISICO add foreign key (idproduto) references PRODUTO(idproduto);
+alter table FAVORITOSJURIDICO add foreign key (idfavoritojuridico) references JURIDICO(idempresa);
+alter table FAVORITOSJURIDICO add foreign key (idproduto) references PRODUTO(idproduto);
+
 
 select * from FISICO;
 select * from ENDERECO_FISICO;

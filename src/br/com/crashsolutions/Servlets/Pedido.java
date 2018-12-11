@@ -63,10 +63,10 @@ public class Pedido extends HttpServlet {
 					
 					String subtrair = String.valueOf(sg.getIdproduto());
 					
-					ProdutoSG produto = dao.consultar(subtrair,1);
+					ProdutoSG produto = dao.consultar(subtrair);
 					
 					produto.setQuantidade(produto.getQuantidade() - sg.getQuantidade_dig());
-					dao.alterar(produto,1);
+					dao.alterar(produto);
 				}
 			}
 			
@@ -95,9 +95,9 @@ public class Pedido extends HttpServlet {
 					String subtrair = String.valueOf(sg.getIdproduto());
 					
 					// DAR BAIXA NO BANCO
-					ProdutoSG produto = dao.consultar(subtrair,sg.getIdfornecedor());
+					ProdutoSG produto = dao.consultar(subtrair);
 					produto.setQuantidade(produto.getQuantidade() - sg.getQuantidade_dig());
-					dao.baixaQuantidade(produto,sg.getIdfornecedor());
+					dao.baixaQuantidade(produto);
 				}
 			}
 			

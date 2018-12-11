@@ -49,119 +49,31 @@ public class DescricaoProduto extends HttpServlet {
 			// INSTANCIA PARA ACESSAR OS TRÊS BANCOS PELA REFERENCIA
 			ProdutoDAO dao = new ProdutoDAO(); 
 			
-			ProdutoSG sg1 = new ProdutoSG();
-			ProdutoSG sg2 = new ProdutoSG();
-			ProdutoSG sg3 = new ProdutoSG();
-			
-			// VERIFICAÇÃO QUAL O MENOR VALOR
-			Integer f1, f2, f3;
-			
-			ProdutoSG v1 = dao.consultarReferencia(referencia, 1);
-			ProdutoSG v2  = dao.consultarReferencia(referencia, 2);
-			ProdutoSG v3  = dao.consultarReferencia(referencia, 3); 
-			
-			if (v1.getValor_venda() < v2.getValor_venda() && v1.getValor_venda() < v3.getValor_venda()) {
-				sg1 = dao.consultarReferencia(referencia, 1); f1 = 1;
-				
-				if(v2.getValor_venda() < v3.getValor_venda()) {
-					sg2 = dao.consultarReferencia(referencia, 2); f2 = 2;
-					sg3 = dao.consultarReferencia(referencia, 3); f3 = 3;
-					
-				} else {
-					sg2 = dao.consultarReferencia(referencia, 3); f2 = 3;
-					sg3 = dao.consultarReferencia(referencia, 2); f3 = 2;
-				}
-			} else {
-				if(v2.getValor_venda() < v3.getValor_venda() && v2.getValor_venda() < v1.getValor_venda()) {
-					sg1 = dao.consultarReferencia(referencia, 2); f1 = 2;
-					
-					if(v1.getValor_venda() < v3.getValor_venda()) {
-						sg2 = dao.consultarReferencia(referencia, 1); f2 = 1;
-						sg3 = dao.consultarReferencia(referencia, 3); f3 = 3;
-					} else {
-						sg2 = dao.consultarReferencia(referencia, 3); f2 = 3;
-						sg3 = dao.consultarReferencia(referencia, 1); f3 = 1;
-					}
-				} else {
-						sg1 = dao.consultarReferencia(referencia, 3); f1 = 3;
-						
-						if(v1.getValor_venda() < v2.getValor_venda()) {
-							sg2 = dao.consultarReferencia(referencia, 1); f2 = 1;
-							sg3 = dao.consultarReferencia(referencia, 2); f3 = 2;
-							
-						} else {
-							sg2 = dao.consultarReferencia(referencia, 2); f2 = 2;
-							sg3 = dao.consultarReferencia(referencia, 1); f3 = 1;
-						}
-				}
-			}
+			String reference = String.valueOf(referencia);
+			ProdutoSG sg = dao.consultar(reference);
 			
 			// LISTA DE TAMANHOS
-			ArrayList<ProdutoSG> listatamanho1 = dao.consultarTamanho(referencia, f1);
-			ArrayList<ProdutoSG> listatamanho2 = dao.consultarTamanho(referencia, f2);
-			ArrayList<ProdutoSG> listatamanho3 = dao.consultarTamanho(referencia, f3);
+			ArrayList<ProdutoSG> listatamanho = dao.consultarTamanho(reference);
 			
-			// PRIMEIRO BANCO DE DADOS
-			request.setAttribute("fornecedor1", dao.consultarFornecedor(f1).getRazao());
-			request.setAttribute("idfornecedor1", dao.consultarFornecedor(f1).getIdfornecedor());
+			request.setAttribute("produto", sg.getProduto());
+			request.setAttribute("imagem", sg.getImagem());
+			request.setAttribute("descricao", sg.getDescricao());
+			request.setAttribute("modelo", sg.getModelo());
+			request.setAttribute("cor", sg.getCor());
+			request.setAttribute("genero", sg.getGenero());
+			request.setAttribute("categoria", sg.getCategoria());
+			request.setAttribute("id", sg.getIdproduto());
+			request.setAttribute("referencia", sg.getReferencia());
+			request.setAttribute("listatamanho", listatamanho);
+			request.setAttribute("quantidade", dao.Quantidade);
 			
-			request.setAttribute("produto", sg1.getProduto());
-			request.setAttribute("imagem", sg1.getImagem());
-			request.setAttribute("descricao", sg1.getDescricao());
-			request.setAttribute("modelo", sg1.getModelo());
-			request.setAttribute("cor", sg1.getCor());
-			request.setAttribute("genero", sg1.getGenero());
-			request.setAttribute("categoria", sg1.getCategoria());
-			request.setAttribute("id", sg1.getIdproduto());
-			request.setAttribute("referencia", sg1.getReferencia());
-			request.setAttribute("listatamanho1", listatamanho1);
-			request.setAttribute("quantidade1", dao.Quantidade);
-			
-			Float valor = sg1.getValor_venda();
-			request.setAttribute("valorf1", fr.formatar(valor));
-			request.setAttribute("valorparcelado1", fr.formatar(cp.Calcular(valor)));
-			request.setAttribute("parcela1", cp.Parcela(valor));
-			
-			// SEGUNDO BANCO DE DADOS
-			if (dao.consultarReferencia(referencia, f2).getProduto() != null) {
-				request.setAttribute("fornecedor2", dao.consultarFornecedor(f2).getRazao());
-				request.setAttribute("idfornecedor2", dao.consultarFornecedor(f2).getIdfornecedor());
-			}
-				
-			request.setAttribute("produto2", sg2.getProduto());
-			request.setAttribute("modelo2", sg2.getModelo());
-			request.setAttribute("id2", sg2.getIdproduto());
-			request.setAttribute("referencia2", sg2.getReferencia());
-			request.setAttribute("listatamanho2", listatamanho2);
-			request.setAttribute("quantidade2", dao.Quantidade);
-				
-			Float valor2 = sg2.getValor_venda();
-			request.setAttribute("valorf2", fr.formatar(valor2));
-			request.setAttribute("valorparcelado2", fr.formatar(cp.Calcular(valor2)));
-			request.setAttribute("parcela2", cp.Parcela(valor2));
-			
-			// TERCEIRO BANCO DE DADOS
-			if(dao.consultarReferencia(referencia, f3).getProduto() != null) {
-				request.setAttribute("fornecedor3", dao.consultarFornecedor(f3).getRazao());
-				request.setAttribute("idfornecedor3", dao.consultarFornecedor(f3).getIdfornecedor());
-			}
-			
-			request.setAttribute("produto3", sg3.getProduto());
-			request.setAttribute("modelo3", sg3.getModelo());
-			request.setAttribute("id3", sg3.getIdproduto());
-			request.setAttribute("referencia3", sg3.getReferencia());
-			request.setAttribute("listatamanho3", listatamanho3);
-			
-			// FORMATAR VALOR REAL E PARCELS	
-			Float valor3 = sg3.getValor_venda();
-			
-			request.setAttribute("quantidade3", dao.Quantidade);
-			request.setAttribute("valorf3", fr.formatar(valor3));
-			request.setAttribute("valorparcelado3", fr.formatar(cp.Calcular(valor3)));
-			request.setAttribute("parcela3", cp.Parcela(valor3));
+			Float valor = sg.getValor_venda();
+			request.setAttribute("valor", fr.formatar(valor));
+			request.setAttribute("valorparcelado", fr.formatar(cp.Calcular(valor)));
+			request.setAttribute("parcela", cp.Parcela(valor));
 
 			// BUSCA A AÇÃO NO DAO QUE BUSCA OS DADOS DO PRODUTO DO CARD
-			ArrayList<ProdutoSG> lista = dao.buscaTodasReferencias(1);
+			ArrayList<ProdutoSG> lista = dao.buscaTodasReferencias();
 			request.setAttribute("lista_produto", lista);
 								
 			RequestDispatcher enviar = request.getRequestDispatcher("DescricaoProduto.jsp");
@@ -178,8 +90,7 @@ public class DescricaoProduto extends HttpServlet {
 			
 			sessao = request.getSession();
 			
-			Integer fornecedor = Integer.parseInt(request.getParameter("fornecedor"));
-			String id = request.getParameter("idproduto");
+			String id = request.getParameter("idtamanho");
 						
 			// VARIAVEIS PARA ADICIONAR NO CARRINHO
 			ProdutoSG colocarcarrinho = new ProdutoSG();
@@ -188,7 +99,7 @@ public class DescricaoProduto extends HttpServlet {
 			String produto = null, imagem = null, tamanho = null, cor = null, categoria = null; 
 			
 			ProdutoDAO produtodao = new ProdutoDAO();
-			colocarcarrinho = produtodao.consultar(id, fornecedor);
+			colocarcarrinho = produtodao.consultar(id);
 			
 			idproduto = colocarcarrinho.getIdproduto();
 			produto = colocarcarrinho.getProduto();
@@ -218,7 +129,6 @@ public class DescricaoProduto extends HttpServlet {
 					sg.getQuantidade_dig();
 					sg.getQuantidade();
 					sg.getValor_venda();
-					sg.getIdfornecedor();
 					carrinho.AdicionarCarrinho(sg);
 				}
 			
@@ -235,7 +145,6 @@ public class DescricaoProduto extends HttpServlet {
 					colocarcarrinho.setQuantidade_dig(1);
 					colocarcarrinho.setQuantidade(quantidade);
 					colocarcarrinho.setValor_venda(valor);
-					colocarcarrinho.setIdfornecedor(fornecedor);
 					carrinho.AdicionarCarrinho(colocarcarrinho);
 					
 					ArrayList<ProdutoSG> carrinhoSessao = carrinho.MostrarCarrinho();
@@ -255,7 +164,6 @@ public class DescricaoProduto extends HttpServlet {
 				colocarcarrinho.setQuantidade_dig(1);
 				colocarcarrinho.setQuantidade(quantidade);
 				colocarcarrinho.setValor_venda(valor);
-				colocarcarrinho.setIdfornecedor(fornecedor);
 				carrinho.AdicionarCarrinho(colocarcarrinho);
 				
 				ArrayList<ProdutoSG> carrinhoSessao = carrinho.MostrarCarrinho();

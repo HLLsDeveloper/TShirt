@@ -13,13 +13,13 @@ public class CadastroJuridicoDAO {
 
 	private String sql;
 	private Connection con;
-	private CadastroJuridicoSG retornoConsulta = new CadastroJuridicoSG();
-	private PreparedStatement stmtConsultar, stmtInserir;
+	private CadastroJuridicoSG retornoConsulta;
+	private PreparedStatement stmtCadastrar, stmtConsultar, stmtInserir;
 	private ResultSet respConsulta;
 
 	public void CadastrarEmpresa(CadastroJuridicoSG sg) throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "insert into JURIDICO (email,senha,cnpj,logo,razao,nomefantasia,ie,telefone,celular,condicao) value (?,?,?,?,?,?,?,?,?,'Ativo')";
 		
 		try {
@@ -49,7 +49,7 @@ public class CadastroJuridicoDAO {
 	
 	public void CadastrarEndereco(CadastroJuridicoSG sg) throws SQLException  {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "insert into ENDERECO_JURIDICO (idenderecojuridico,nomeendereco,endereco,numero,complemento,bairro,cidade,estado,cep) value (?,?,?,?,?,?,?,?,?)";
 		
 		try {
@@ -74,10 +74,88 @@ public class CadastroJuridicoDAO {
 			System.out.println("Erro ao inserir o endereço" + e);
 		}
 	}
-
+	
+	public void cadastrarFavoritos(CadastroJuridicoSG sgjuridico) throws SQLException {
+		
+		con = new Factory().conBD();
+		sql = "insert into FAVORITOSFISICO (idfavoritofisico,idproduto,favoritopers) value (?,?,?)";
+		
+		try {
+			
+			stmtCadastrar = con.prepareStatement(sql);
+			
+			stmtCadastrar.setInt(1, sgjuridico.getIdfavoritojuridico());
+			stmtCadastrar.setInt(2, sgjuridico.getIdproduto());
+			stmtCadastrar.setString(3, sgjuridico.getFavoritopers());
+			
+			stmtCadastrar.execute();
+			stmtCadastrar.close();
+			con.close();
+			
+		} catch (Exception ex) {
+			System.out.println("Erro ao cadastrar "+ ex);
+			con.close();
+		}
+	}
+	
+	public ArrayList<CadastroJuridicoSG> consultarFavoritos(Integer idempresa) throws SQLException {
+		
+		con = new Factory().conBD();
+		sql = "select JURIDICO.idempresa, FAVORITOSJURIDICO.* from FAVORITOSJURIDICO join JURIDICO on FAVORITOSJURIDICO.idfavoritojuridico = juridico.idempresa where idfavoritojuridico = ?";
+		
+		ArrayList<CadastroJuridicoSG> lista = new ArrayList<CadastroJuridicoSG>();
+		
+		try {
+			
+			stmtConsultar = con.prepareStatement(sql);
+			stmtConsultar.setInt(1, idempresa);
+			respConsulta = stmtConsultar.executeQuery();
+			
+			while(respConsulta.next()) {
+				
+				retornoConsulta = new CadastroJuridicoSG();
+				retornoConsulta.setIdfavorito(respConsulta.getInt("idfavorito"));
+				retornoConsulta.setIdfavoritojuridico(respConsulta.getInt("idfavoritojuridico"));
+				retornoConsulta.setIdproduto(respConsulta.getInt("idproduto"));
+				retornoConsulta.setFavoritopers(respConsulta.getString("favoritopers"));
+				lista.add(retornoConsulta);
+			}
+			
+			stmtConsultar.close();
+			con.close();
+			
+		} catch(Exception e) {
+			System.out.println("Erro ao consultar os favoritos " + e);
+			con.close();
+		}
+		return lista;
+	}
+	
+	public Boolean verificarFavoritos(String dados, Integer idempresa) throws SQLException {
+		
+		ArrayList<CadastroJuridicoSG> check = consultarFavoritos(idempresa);
+		Boolean encontrado = null;
+		
+		if(!check.isEmpty()) {
+			for(CadastroJuridicoSG sg: check) {
+				if(sg.getIdproduto().equals(Integer.parseInt(dados))) {
+					encontrado = true;
+					return encontrado;
+				}
+				else {
+					encontrado = false;
+				}
+			}
+		}
+		else {
+			encontrado = false;
+		}
+	return encontrado;
+	}
+	
 	public CadastroJuridicoSG ConsultarEmpresa(String geral) throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "select * from JURIDICO where email = ?";
 		
 		try {
@@ -114,7 +192,7 @@ public class CadastroJuridicoDAO {
 	
 	public ArrayList<CadastroJuridicoSG> listarEnderecos(String geral) throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		sql = "select JURIDICO.idempresa, ENDERECO_JURIDICO.* from ENDERECO_JURIDICO join JURIDICO on endereco_juridico.idenderecojuridico = juridico.idempresa where email = ?";
 		
 		ArrayList <CadastroJuridicoSG> listartodos = new ArrayList<>();
@@ -152,7 +230,7 @@ public class CadastroJuridicoDAO {
 	
 	public ArrayList<CadastroJuridicoSG> listar() throws SQLException {
 		
-		con = new Factory().conBD1();
+		con = new Factory().conBD();
 		
 		ArrayList<CadastroJuridicoSG> lista = new ArrayList<>();
 		sql = "select * from JURIDICO";
@@ -193,7 +271,7 @@ public class CadastroJuridicoDAO {
 	//PEGA O ÚLTIMO ID GERADO PELO BANCO DE DADOS
 		public CadastroJuridicoSG buscarultimo() throws SQLException {
 			
-			con = new Factory().conBD1();
+			con = new Factory().conBD();
 			sql = "select max(idempresa) from JURIDICO";
 			
 			try {
