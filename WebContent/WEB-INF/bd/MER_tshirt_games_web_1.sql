@@ -21,7 +21,7 @@ condicao char(7)
 create table FISICO (
 idusuario int not null auto_increment primary key,
 email varchar(50),
-senha varchar(16),
+senha varchar(32),
 cpf varchar(20),
 imagem varchar(50),
 nome varchar(40),
@@ -36,7 +36,7 @@ condicao char(7)
 create table JURIDICO (
 idempresa int not null auto_increment primary key,
 email varchar(50),
-senha varchar(16),
+senha varchar(32),
 cnpj varchar(20),
 logo varchar(50),
 razao varchar(20),
@@ -146,6 +146,7 @@ alter table FAVORITOSJURIDICO add foreign key (idproduto) references PRODUTO(idp
 
 
 select * from FISICO;
+select * from JURIDICO;
 select * from ENDERECO_FISICO;
 select * from ENDERECO_JURIDICO;
 select * from PRODUTO;

@@ -13,9 +13,10 @@ public class CadastroJuridicoDAO {
 
 	private String sql;
 	private Connection con;
-	private CadastroJuridicoSG retornoConsulta;
+	private CadastroJuridicoSG retornoLista;
 	private PreparedStatement stmtCadastrar, stmtConsultar, stmtInserir;
 	private ResultSet respConsulta;
+	private Boolean emailencontrado;
 
 	public void CadastrarEmpresa(CadastroJuridicoSG sg) throws SQLException {
 		
@@ -113,12 +114,12 @@ public class CadastroJuridicoDAO {
 			
 			while(respConsulta.next()) {
 				
-				retornoConsulta = new CadastroJuridicoSG();
-				retornoConsulta.setIdfavorito(respConsulta.getInt("idfavorito"));
-				retornoConsulta.setIdfavoritojuridico(respConsulta.getInt("idfavoritojuridico"));
-				retornoConsulta.setIdproduto(respConsulta.getInt("idproduto"));
-				retornoConsulta.setFavoritopers(respConsulta.getString("favoritopers"));
-				lista.add(retornoConsulta);
+				retornoLista = new CadastroJuridicoSG();
+				retornoLista.setIdfavorito(respConsulta.getInt("idfavorito"));
+				retornoLista.setIdfavoritojuridico(respConsulta.getInt("idfavoritojuridico"));
+				retornoLista.setIdproduto(respConsulta.getInt("idproduto"));
+				retornoLista.setFavoritopers(respConsulta.getString("favoritopers"));
+				lista.add(retornoLista);
 			}
 			
 			stmtConsultar.close();
@@ -166,17 +167,18 @@ public class CadastroJuridicoDAO {
 			
 			while (respConsulta.next()) {
 				
-				retornoConsulta.setIdempresa(respConsulta.getInt("idempresa"));
-				retornoConsulta.setEmail(respConsulta.getString("email"));
-				retornoConsulta.setSenha(respConsulta.getString("senha"));
-				retornoConsulta.setCnpj(respConsulta.getString("cnpj"));
-				retornoConsulta.setLogo(respConsulta.getString("logo"));
-				retornoConsulta.setRazao(respConsulta.getString("razao"));
-				retornoConsulta.setNomefantasia(respConsulta.getString("nomefantasia"));
-				retornoConsulta.setIe(respConsulta.getString("ie"));
-				retornoConsulta.setTelefone(respConsulta.getString("telefone"));
-				retornoConsulta.setCelular(respConsulta.getString("celular"));
-				retornoConsulta.setCondicao(respConsulta.getString("condicao"));
+				retornoLista = new CadastroJuridicoSG();
+				retornoLista.setIdempresa(respConsulta.getInt("idempresa"));
+				retornoLista.setEmail(respConsulta.getString("email"));
+				retornoLista.setSenha(respConsulta.getString("senha"));
+				retornoLista.setCnpj(respConsulta.getString("cnpj"));
+				retornoLista.setLogo(respConsulta.getString("logo"));
+				retornoLista.setRazao(respConsulta.getString("razao"));
+				retornoLista.setNomefantasia(respConsulta.getString("nomefantasia"));
+				retornoLista.setIe(respConsulta.getString("ie"));
+				retornoLista.setTelefone(respConsulta.getString("telefone"));
+				retornoLista.setCelular(respConsulta.getString("celular"));
+				retornoLista.setCondicao(respConsulta.getString("condicao"));
 					
 			}
 			
@@ -187,7 +189,7 @@ public class CadastroJuridicoDAO {
 			con.close();
 			System.out.println("Erro ao consultar o usuário + doidera " + e);
 		}
-		return retornoConsulta;
+		return retornoLista;
 	}
 	
 	public ArrayList<CadastroJuridicoSG> listarEnderecos(String geral) throws SQLException {
@@ -204,7 +206,7 @@ public class CadastroJuridicoDAO {
 			
 			while (respConsulta.next()) {
 				
-				CadastroJuridicoSG retornoLista = new CadastroJuridicoSG();
+				retornoLista = new CadastroJuridicoSG();
 				retornoLista.setIdendereco(respConsulta.getInt("endereco_juridico.idendereco"));
 				retornoLista.setNomeendereco(respConsulta.getString("endereco_juridico.nomeendereco"));
 				retornoLista.setEndereco(respConsulta.getString("endereco_juridico.endereco"));
@@ -242,18 +244,17 @@ public class CadastroJuridicoDAO {
 			
 			while (respConsulta.next()) {
 				
-				retornoConsulta = new CadastroJuridicoSG();			
-				
-				retornoConsulta.setIdempresa(respConsulta.getInt("idempresa"));
-				retornoConsulta.setEmail(respConsulta.getString("email"));
-				retornoConsulta.setSenha(respConsulta.getString("senha"));
-				retornoConsulta.setCnpj(respConsulta.getString("cnpj"));
-				retornoConsulta.setLogo(respConsulta.getString("logo"));
-				retornoConsulta.setRazao(respConsulta.getString("razao"));
-				retornoConsulta.setNomefantasia(respConsulta.getString("nomefantasia"));
-				retornoConsulta.setIe(respConsulta.getString("ie"));
-				retornoConsulta.setCondicao(respConsulta.getString("condicao"));
-				lista.add(retornoConsulta);
+				retornoLista = new CadastroJuridicoSG();
+				retornoLista.setIdempresa(respConsulta.getInt("idempresa"));
+				retornoLista.setEmail(respConsulta.getString("email"));
+				retornoLista.setSenha(respConsulta.getString("senha"));
+				retornoLista.setCnpj(respConsulta.getString("cnpj"));
+				retornoLista.setLogo(respConsulta.getString("logo"));
+				retornoLista.setRazao(respConsulta.getString("razao"));
+				retornoLista.setNomefantasia(respConsulta.getString("nomefantasia"));
+				retornoLista.setIe(respConsulta.getString("ie"));
+				retornoLista.setCondicao(respConsulta.getString("condicao"));
+				lista.add(retornoLista);
 				
 			}
 			
@@ -269,28 +270,60 @@ public class CadastroJuridicoDAO {
 	}
 	
 	//PEGA O ÚLTIMO ID GERADO PELO BANCO DE DADOS
-		public CadastroJuridicoSG buscarultimo() throws SQLException {
+	public CadastroJuridicoSG buscarultimo() throws SQLException {
+		
+		con = new Factory().conBD();
+		sql = "select max(idempresa) from JURIDICO";
+		
+		try {
 			
-			con = new Factory().conBD();
-			sql = "select max(idempresa) from JURIDICO";
+			stmtConsultar = con.prepareStatement(sql);
+			respConsulta = stmtConsultar.executeQuery();
 			
-			try {
+			while (respConsulta.next()) {
 				
-				stmtConsultar = con.prepareStatement(sql);
-				respConsulta = stmtConsultar.executeQuery();
-				
-				while (respConsulta.next()) {
-					
-					retornoConsulta.setIdempresa(respConsulta.getInt("max(idempresa)"));
-				}
-				
-				stmtConsultar.close();
-				con.close(); 
-				
-			} catch (Exception e) {
-				con.close();
-				System.out.println("Erro ao buscar o último dado do banco: "+ e);
+				retornoLista = new CadastroJuridicoSG();
+				retornoLista.setIdempresa(respConsulta.getInt("max(idempresa)"));
 			}
-			return retornoConsulta;
+			
+			stmtConsultar.close();
+			con.close(); 
+			
+		} catch (Exception e) {
+			con.close();
+			System.out.println("Erro ao buscar o último dado do banco: "+ e);
 		}
+		return retornoLista;
+	}
+	
+	public Boolean EncontrarEmail(String email) throws SQLException {
+		 
+		 // BUSCA NA TABELA FISICO PELO EMAIL E SENHA
+		 con = new Factory().conBD();
+		 sql = "select email from JURIDICO where email = '" + email + "'";
+		 
+		 emailencontrado = null;
+
+		 try{
+
+			 stmtConsultar = con.prepareStatement(sql);
+			 respConsulta = stmtConsultar.executeQuery();
+
+			 // VALIDAÇÃO DE ACESSO FISICO
+			 if(respConsulta.next()) {
+				 emailencontrado = true;
+			 } else {
+				 emailencontrado = false;
+			 }
+
+			 stmtConsultar.close();
+			 respConsulta.close();
+			 con.close();
+
+		 } catch (Exception ex) {
+			 System.out.println("Erro no Login: "+ ex);
+			 con.close();
+		 }
+		return emailencontrado;
+	 }
 }

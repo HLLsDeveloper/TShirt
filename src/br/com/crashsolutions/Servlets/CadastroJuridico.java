@@ -1,5 +1,6 @@
 package br.com.crashsolutions.Servlets;
 
+import br.com.crashsolutions.Acoes.Criptografia;
 import br.com.crashsolutions.DAO.CadastroJuridicoDAO;
 import br.com.crashsolutions.SG.CadastroJuridicoSG;
 import java.io.IOException;
@@ -21,11 +22,10 @@ public class CadastroJuridico extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if(request.getAttribute("mensagemcadastro") == "Empresa cadastrada com sucesso!") {
+		if(request.getAttribute("validacao") == "true") {
 			
-			request.setAttribute("mensagem", request.getAttribute("mensagemcadastro"));
-			RequestDispatcher enviar = request.getRequestDispatcher("/Login");
-			enviar.forward(request, response);
+			request.setAttribute("mensagem", "Cadastrado com Sucesso!");
+			response.sendRedirect("Login");
 		}
 		else {
 			
@@ -42,7 +42,7 @@ public class CadastroJuridico extends HttpServlet {
 		    CadastroJuridicoDAO juridicodao = new CadastroJuridicoDAO();
 			
 			String emailuser = request.getParameter("email");
-		    String senhauser = request.getParameter("senha");
+		    String senhauser = Criptografia.criptografar((String) request.getParameter("senha"));
 		    String cnpjuser = request.getParameter("cnpj");
 		    String logouser = request.getParameter("logo");
 		    String razaouser = request.getParameter("razao");
@@ -86,10 +86,10 @@ public class CadastroJuridico extends HttpServlet {
 		    // UTILIZA O METODO CADASTRARENDERECO DO DAO
 		    juridicodao.CadastrarEndereco(juridicosg);
 		    
-		    request.setAttribute("mensagemcadastro", "Empresa cadastrada com sucesso!");
+		    request.setAttribute("validacao", "true");
 		    
 		} catch (Exception ex) {
-			request.setAttribute("mensagemcadastro", "Ocorreu um erro no cadastro, verifique os campos!");
+			request.setAttribute("validacao", "false");
 			System.out.println("Erro no CadastroJuridico: " + ex);
 		}
 		doGet(request, response);

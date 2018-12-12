@@ -65,7 +65,7 @@
                     </div>
                     <div class="col-lg-6">
                         <p class="text-center cadastrar_taux">
-                            <a href="CadastroJuridico.jsp">Não é pessoa física?</a>
+                            <a href="CadastroJuridico">Não é pessoa física?</a>
                         </p>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="cadastro_nascimento">Data nascimento:</label> <input type="text" class="form-control" name="datanascimentouser" id="datanascimento" placeholder="dd/mm/aaaa" required>
+                            <label for="cadastro_nascimento">Data nascimento:</label> <input type="text" class="form-control" name="datanascimento" id="datanascimento" placeholder="dd/mm/aaaa" required>
                         </div>
                     </div>
                     <div class="col-lg-6">

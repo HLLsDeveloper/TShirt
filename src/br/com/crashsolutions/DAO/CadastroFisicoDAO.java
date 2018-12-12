@@ -16,6 +16,7 @@ public class CadastroFisicoDAO {
 	private CadastroFisicoSG retornoLista;
 	private PreparedStatement stmConsulta, stmCadastrar, stmAlterarusu;
 	private ResultSet respConsulta;
+	private Boolean emailencontrado;
 	
 	public void cadastrarUsuario(CadastroFisicoSG sg) throws SQLException {
 		
@@ -41,7 +42,7 @@ public class CadastroFisicoDAO {
 			con.close();
 			
 		} catch (Exception ex) {
-			System.out.println("Erro ao cadastrar"+ ex);
+			System.out.println("Erro ao cadastrar o Usuário "+ ex);
 			con.close();
 		}
 	}
@@ -70,7 +71,7 @@ public class CadastroFisicoDAO {
 			con.close();
 			
 		} catch (Exception ex) {
-			System.out.println("Erro ao cadastrar"+ ex);
+			System.out.println("Erro ao cadastrar o Endereço "+ ex);
 			con.close();
 		}
 	}
@@ -93,7 +94,7 @@ public class CadastroFisicoDAO {
 			con.close();
 			
 		} catch (Exception ex) {
-			System.out.println("Erro ao cadastrar "+ ex);
+			System.out.println("Erro ao cadastrar os Favoritos "+ ex);
 			con.close();
 		}
 	}
@@ -186,12 +187,11 @@ public class CadastroFisicoDAO {
 	public CadastroFisicoSG ConsultarUsuario (String geral) throws SQLException {
 		
 		con = new Factory().conBD();
-		sql = "select * from FISICO where email = ? or idusuario = ?";
+		sql = "select * from FISICO where email = ?";
 		
 		try {
 			stmConsulta = con.prepareStatement(sql);
 			stmConsulta.setString(1, geral);
-			stmConsulta.setString(2, geral);
 			respConsulta = stmConsulta.executeQuery();
 			
 			while (respConsulta.next()) {
@@ -233,7 +233,7 @@ public class CadastroFisicoDAO {
 			
 			while (respConsulta.next()) {
 				
-				CadastroFisicoSG retornoLista = new CadastroFisicoSG();
+				retornoLista = new CadastroFisicoSG();
 				retornoLista.setIdusuario(respConsulta.getInt("idusuario"));
 				retornoLista.setEmail(respConsulta.getString("email"));
 				retornoLista.setCpf(respConsulta.getString("cpf"));
@@ -273,7 +273,7 @@ public class CadastroFisicoDAO {
 			
 			while (respConsulta.next()) {
 				
-				CadastroFisicoSG retornoLista = new CadastroFisicoSG();
+				retornoLista = new CadastroFisicoSG();
 				retornoLista.setIdendereco(respConsulta.getInt("endereco_fisico.idendereco"));
 				retornoLista.setNomeendereco(respConsulta.getString("endereco_fisico.nomeendereco"));
 				retornoLista.setEndereco(respConsulta.getString("endereco_fisico.endereco"));
@@ -313,7 +313,7 @@ public class CadastroFisicoDAO {
 			
 			while (respConsulta.next()) {
 				
-				CadastroFisicoSG retornoLista = new CadastroFisicoSG();
+				retornoLista = new CadastroFisicoSG();
 				retornoLista.setIdusuario(respConsulta.getInt("idusuario"));
 				retornoLista.setEmail(respConsulta.getString("email"));
 				retornoLista.setCpf(respConsulta.getString("cpf"));
@@ -352,6 +352,7 @@ public class CadastroFisicoDAO {
 			
 			while (respConsulta.next()) {
 				
+				retornoLista = new CadastroFisicoSG();
 				retornoLista.setIdusuario(respConsulta.getInt("max(idusuario)"));
 			}
 			
@@ -359,10 +360,41 @@ public class CadastroFisicoDAO {
 			con.close(); 
 			
 		} catch (Exception e) {
-			System.out.println("Erro ao buscar o ï¿½ltimo dado do banco: "+ e);
+			System.out.println("Erro ao buscar o último dado do banco: "+ e);
 			con.close();
 		}
 		return retornoLista;
 	}
+	
+	public Boolean EncontrarEmail(String email) throws SQLException {
+		 
+		 // BUSCA NA TABELA FISICO PELO EMAIL E SENHA
+		 con = new Factory().conBD();
+		 sql = "select email from FISICO where email = '" + email + "'";
+		 
+		 emailencontrado = null;
+
+		 try{
+
+			 stmConsulta = con.prepareStatement(sql);
+			 respConsulta = stmConsulta.executeQuery();
+
+			 // VALIDAÇÃO DE ACESSO FISICO
+			 if(respConsulta.next()) {
+				 emailencontrado = true;
+			 } else {
+				 emailencontrado = false;
+			 }
+
+			 stmConsulta.close();
+			 respConsulta.close();
+			 con.close();
+
+		 } catch (Exception ex) {
+			 System.out.println("Erro no Login: "+ ex);
+			 con.close();
+		 }
+		return emailencontrado;
+	 }
 }
 

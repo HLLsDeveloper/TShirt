@@ -41,7 +41,7 @@ public class UploadImages extends HttpServlet {
 			String name = imagem.getSubmittedFileName();
 			
 			//PEGA O CAMINHO DO PROJETO NO TOMCAT
-			String path = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Workspace" + File.separator + "TShirtGames" + File.separator + "WebContent" + File.separator + "resources" + File.separator + "img" + File.separator + "imagens" + File.separator;
+			String path = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Workspace" + File.separator + "TShirt" + File.separator + "WebContent" + File.separator + "resources" + File.separator + "img" + File.separator + "imagens" + File.separator;
 			
 			//VERIFICANDO SE A PASTA ONDE O UPLOAD SERÁ SALVO EXISTE, SE NÃO EXISTIR VAMOS CRIAR
 		    File pasta = new File(path);

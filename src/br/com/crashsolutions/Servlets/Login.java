@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.crashsolutions.Acoes.ConexaoLogin;
+import br.com.crashsolutions.Acoes.Criptografia;
 import br.com.crashsolutions.DAO.CadastroFisicoDAO;
 import br.com.crashsolutions.DAO.CadastroJuridicoDAO;
 import br.com.crashsolutions.SG.CadastroFisicoSG;
@@ -36,14 +37,16 @@ public class Login extends HttpServlet {
 		try {
 			
 			String email = request.getParameter("login_email");
-			String senha = request.getParameter("login_senha");
+			String senha = Criptografia.criptografar(request.getParameter("login_senha"));
 			String url = null;
 			
 			CadastroFisicoDAO fisicodao = new CadastroFisicoDAO();
 			
-			CadastroFisicoSG fisico = fisicodao.ConsultarUsuario(email);
+			Boolean emailencontradofisico = fisicodao.EncontrarEmail(email);
 			
-			if(fisico.getEmail() != null) {
+			if(emailencontradofisico == true) {
+				
+				CadastroFisicoSG fisico = fisicodao.ConsultarUsuario(email);
 				
 				ConexaoLogin conexaologin = new ConexaoLogin();
 				Boolean acessofisico = conexaologin.LoginFisico(email, senha);
@@ -84,13 +87,15 @@ public class Login extends HttpServlet {
 				}
 			}
 			
-			if(fisico.getEmail() == null) {
+			if(emailencontradofisico == false) {
 				
 				CadastroJuridicoDAO juridicodao = new CadastroJuridicoDAO();
 				
-				CadastroJuridicoSG juridico = juridicodao.ConsultarEmpresa(email);
+				Boolean emailencontradojuridico = juridicodao.EncontrarEmail(email);
 				
-				if(juridico.getEmail() != null) {
+				if(emailencontradojuridico == true) {
+					
+					CadastroJuridicoSG juridico = juridicodao.ConsultarEmpresa(email);
 					
 					ConexaoLogin conexaologin = new ConexaoLogin();
 					Boolean acessojuridico = conexaologin.LoginJuridico(email, senha);
@@ -127,7 +132,7 @@ public class Login extends HttpServlet {
 						doGet(request, response);
 					}
 				}
-				if(juridico.getEmail() == null) {
+				if(emailencontradojuridico == false) {
 					
 					request.setAttribute("mensagemlogin", "Usuário não cadastrado, por favor faça o cadastro!");
 					doGet(request, response);
