@@ -76,6 +76,13 @@
 						</ul>
 					</div>
 				</div>
+				<div class="card">
+					<h5 class="card-header">Frete:</h5>
+					<div class="card-body">
+						<input>
+						<button></button>
+					</div>
+				</div>
 			</div>
 
 			<div class="col-md-12 col-lg-6">
@@ -130,13 +137,6 @@
 									placeholder="">
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-12 col-lg-6">
-				<div class="card">
-					<h5 class="card-header">Frete:</h5>
-					<div class="card-body">
 					</div>
 				</div>
 			</div>

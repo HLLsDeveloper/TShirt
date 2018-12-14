@@ -150,6 +150,7 @@ select * from JURIDICO;
 select * from ENDERECO_FISICO;
 select * from ENDERECO_JURIDICO;
 select * from PRODUTO;
+select * from FAVORITOSJURIDICO;
 
 /* INFORMAÇÕES
 

@@ -79,7 +79,7 @@ public class CadastroJuridicoDAO {
 	public void cadastrarFavoritos(CadastroJuridicoSG sgjuridico) throws SQLException {
 		
 		con = new Factory().conBD();
-		sql = "insert into FAVORITOSFISICO (idfavoritofisico,idproduto,favoritopers) value (?,?,?)";
+		sql = "insert into FAVORITOSJURIDICO (idfavoritojuridico,idproduto,favoritopers) value (?,?,?)";
 		
 		try {
 			

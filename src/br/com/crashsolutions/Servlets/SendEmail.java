@@ -31,7 +31,9 @@ public class SendEmail extends HttpServlet {
 		try {
 			
 			String email = request.getParameter("email");
-			String remetente = "Hugo";
+			String remetente = request.getParameter("nome");
+			String assunto = request.getParameter("assunto");
+			String msg = request.getParameter("msg");
 			
 			HtmlEmail sendemail = new HtmlEmail();
 			sendemail.setHostName("smtp.gmail.com");
@@ -40,10 +42,10 @@ public class SendEmail extends HttpServlet {
 			sendemail.setAuthentication("hllsdeveloper@gmail.com", "HLLs1622");
 			
 			//EMAIL DO CLIENTE, ASSUNTO E MENSAGEM
-			sendemail.addTo("hllsdeveloper@gmail.com");
+			sendemail.addTo("contatohlls@gmail.com");
 			sendemail.setFrom(email, remetente);
-			sendemail.setSubject("Camiseta DragonBall");
-			sendemail.setMsg("Eu queria saber se as camisetas são de ótima qualidade.");
+			sendemail.setSubject(assunto);
+			sendemail.setMsg(msg);
 			//////////////////////////////////////
 			
 			sendemail.send();

@@ -7,8 +7,14 @@
 </head>
 <body>
 	<form action="Email" method="post">
+		<label>Nome</label>
+		<input type="text" name="nome">
 		<label>Email</label>
 		<input type="text" name="email">
+		<label>Assunto</label>
+		<input type="text" name="assunto">
+		<label>Mensagem</label>
+		<input type="text" name="msg">
 		
 		<button type="submit">Enviar</button>
 	</form>
